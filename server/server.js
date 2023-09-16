@@ -16,6 +16,7 @@ const Role = db.role;
 const Manufacturer = db.manufacturer;
 const Focus = db.focus;
 const User = db.user;
+const Ship = db.ship;
 
 db.mongoose
   .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
@@ -46,86 +47,95 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-function initial() {
-  Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      ["viewer", "editor"].forEach((roleName) => {
-        new Role({
-          name: roleName,
-        }).save((err, role) => {
-          if (err) {
-            console.log("error", err);
-          }
+async function initial() {
+  try {
+    let roles = [];
+    let focuses = [];
+    let manufacturers = [];
 
-          console.log(`Role ${roleName} to roles collection`);
-        });
-      });
-    }
-  });
+    const [roleCount, manufacturerCount, focusCount, userCount, shipCount] =
+      await Promise.all([
+        Role.estimatedDocumentCount(),
+        Manufacturer.estimatedDocumentCount(),
+        Focus.estimatedDocumentCount(),
+        User.estimatedDocumentCount(),
+        Ship.estimatedDocumentCount(),
+      ]);
 
-  Manufacturer.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      ["Anvil Aerospace", "Freight", "Drake Interplanetary"].forEach((name) => {
-        new Manufacturer({ name }).save((err) => {
-          if (err) {
-            console.log("error", err);
-          }
+    if (roleCount === 0) {
+      roles = await Role.insertMany([{ name: "viewer" }, { name: "editor" }]);
 
-          console.log(`Manufacturer ${name} added to manufacturers collection`);
-        });
-      });
-    }
-  });
-
-  Focus.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-      [
-        "Combat Light Fighter",
-        "Combat Medium Fighter",
-        "Combat Heavy Fighter",
-        "Transporter Light",
-        "Transporter Medium",
-        "Transporter Passenger",
-      ].forEach((name) => {
-        new Focus({ name }).save((err) => {
-          if (err) {
-            console.log("error", err);
-          }
-
-          console.log(`Added ${name} to focus collection`);
-        });
-      });
+      console.log("New roles have been inserted");
     }
 
-    User.estimatedDocumentCount((err, count) => {
-      if (!err && count === 0) {
-        Role.find({}).exec((err, data) => {
-          if (err) {
-            return;
-          }
+    if (manufacturerCount === 0) {
+      manufacturers = await Manufacturer.insertMany([
+        { name: "Anvil Aerospace" },
+        { name: "Freight" },
+        { name: "Drake Interplanetary" },
+      ]);
 
-          [
-            ["viewer", "Test123!", "viewer"],
-            ["editor", "Test123!", "editor"],
-          ].forEach(([username, password, userRole]) => {
-            const role = data.find(({ name }) => name === userRole);
+      console.log("New manufacturers have been inserted");
+    }
 
-            const user = {
-              username,
-              password: bcrypt.hashSync(password, 8),
-              roles: [role._id],
-            };
+    if (focusCount === 0) {
+      focuses = await Focus.insertMany([
+        { name: "Combat Light Fighter" },
+        { name: "Combat Medium Fighter" },
+        { name: "Combat Heavy Fighter" },
+        { name: "Transporter Light" },
+        { name: "Transporter Medium" },
+        { name: "Transporter Passenger" },
+      ]);
 
-            new User(user).save((err) => {
-              if (err) {
-                console.log(err);
-              }
+      console.log("New focuses have been inserted");
+    }
 
-              console.log(`Added ${user.username} to users collection`);
-            });
-          });
-        });
-      }
-    });
-  });
+    if (userCount === 0) {
+      await User.insertMany([
+        {
+          username: "editor",
+          password: bcrypt.hashSync("Test123!", 8),
+          roles: [roles.find((r) => r.name === "editor")._id],
+        },
+        {
+          username: "viewer",
+          password: bcrypt.hashSync("Test123!", 8),
+          roles: [roles.find((r) => r.name === "viewer")._id],
+        },
+      ]);
+
+      console.log("New users have been inserted");
+    }
+
+    if (shipCount === 0) {
+      await Ship.insertMany([
+        {
+          name: "Anvil Hornet F7C",
+          focus: focuses.find((f) => f.name === "Combat Medium Fighter")._id,
+          manufacturer: manufacturers.find((m) => m.name === "Anvil Aerospace")
+            ._id,
+          price: 1496000,
+        },
+        {
+          name: "Argo MPUV Cargo",
+          focus: focuses.find((f) => f.name === "Transporter Light")._id,
+          manufacturer: manufacturers.find((m) => m.name === "Freight")._id,
+          price: 126540,
+        },
+        {
+          name: "Drake Buccaneer",
+          focus: focuses.find((f) => f.name === "Combat Light Fighter")._id,
+          manufacturer: manufacturers.find(
+            (m) => m.name === "Drake Interplanetary"
+          )._id,
+          price: 1128700,
+        },
+      ]);
+
+      console.log("New ships have been inserted");
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

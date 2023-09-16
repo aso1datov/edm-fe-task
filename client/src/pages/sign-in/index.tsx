@@ -1,4 +1,4 @@
-import type { FC } from "react";
+import { type FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Card } from "../../components/card";
@@ -14,9 +14,11 @@ export const SignIn: FC = () => {
   const navigate = useNavigate();
   const auth = useAppSelector(getAuthorizationStatus);
 
-  if (auth) {
-    navigate(AppRoute.Ships, { replace: true });
-  }
+  useEffect(() => {
+    if (auth) {
+      navigate(AppRoute.Ships, { replace: true });
+    }
+  }, [auth, navigate]);
 
   return (
     <section className={styles.container}>

@@ -66,8 +66,6 @@ export const SignInForm: FC<Props> = ({ className }) => {
     } catch (error) {
       dropAuthToken();
 
-      console.log(error);
-
       if (isServerError(error)) {
         setError(error.data.message);
       }
