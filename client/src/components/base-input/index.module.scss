@@ -1,0 +1,161 @@
+/* stylelint-disable max-nesting-depth */
+@use "sass:map";
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+
+.field {
+  @include input-border;
+
+  padding-right: $input-field-horizontal-offset;
+  padding-left: $input-field-horizontal-offset;
+  min-height: $input-min-height;
+  border-radius: map.get($border-radius, small);
+  transition: box-shadow $input-transition-duration $input-transition-timing-function;
+}
+
+.label,
+.input {
+  @include text-xl-regular;
+}
+
+.label {
+  position: absolute;
+  top: calc(#{$input-min-height} / 2);
+  left: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transform: translateY(-50%) scale(1);
+  transform-origin: top left;
+  transition-duration: $input-transition-duration;
+  transition-property: color, transform;
+  transition-timing-function: $input-transition-timing-function;
+  margin-inline-start: -0.25rem;
+  user-select: none;
+  pointer-events: none;
+}
+
+.labelText {
+  display: inline-block;
+  padding: 0 0.25rem;
+  background-color: transparent;
+  transition: background-color $input-transition-duration $input-transition-timing-function;
+}
+
+.input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.focused,
+.filled {
+  .label {
+    transform: translateY(-140%) scale(0.75);
+  }
+
+  .labelText {
+    background-color: $white;
+  }
+}
+
+.bottomAddon,
+.asterisk {
+  transition: color $input-transition-duration $input-transition-timing-function;
+}
+
+.bottomAddon {
+  @include text-m-medium;
+
+  flex-flow: row nowrap;
+  align-items: flex-start;
+
+  &:not(:empty) {
+    padding: 0.1875rem $input-field-horizontal-offset 0;
+  }
+}
+
+.bottomAddonStart {
+  text-align: start;
+  flex: 1;
+  margin-inline-end: auto;
+}
+
+.bottomAddonEnd {
+  margin-inline-start: auto;
+  text-align: end;
+}
+
+.asterisk {
+  position: relative;
+  display: inline;
+  vertical-align: baseline;
+  top: -0.25em;
+  font-size: inherit;
+  color: $primary-red-500;
+}
+
+.primary {
+  .field {
+    @include input-border($primary-gray-500);
+  }
+
+  .label,
+  .addon {
+    color: $primary-gray-500;
+  }
+
+  .input {
+    color: $primary-gray-900;
+  }
+
+  &.disabled {
+    .field {
+      @include input-border($primary-gray-300);
+    }
+
+    .label,
+    .input,
+    .bottomAddon,
+    .asterisk {
+      color: $primary-gray-300;
+    }
+  }
+
+  &:hover:not(.disabled) {
+    .field {
+      @include input-border($primary-gray-900);
+    }
+  }
+
+  &.focused:not(.disabled) {
+    .field {
+      @include input-border($secondary-purple-500);
+    }
+
+    .label {
+      color: $secondary-purple-500;
+    }
+  }
+
+  &.error:not(.disabled) {
+    .field {
+      @include input-border($primary-red-500);
+    }
+
+    .bottomAddonStart {
+      color: $primary-red-500;
+    }
+
+
+    &.focused,
+    &.filled {
+      .label {
+        color: $primary-red-500;
+      }
+    }
+  }
+}

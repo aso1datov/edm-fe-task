@@ -1,0 +1,164 @@
+@use "sass:map";
+@import "./typography";
+@import "./breakpoints";
+
+@mixin input-border($color: transparent) {
+  box-shadow: inset 0 0 0 2px $color;
+}
+
+@mixin reset-button {
+  outline: none;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  text-align: initial;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-appearance: none;
+}
+
+@mixin reset-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin title-xxl-bold {
+  @include title-xxl;
+  @include font-bold;
+}
+
+@mixin title-xxl-medium {
+  @include title-xxl;
+  @include font-medium;
+}
+
+@mixin title-xxl-regular {
+  @include title-xxl;
+  @include font-regular;
+}
+
+@mixin title-xl-bold {
+  @include title-xl;
+  @include font-bold;
+}
+
+@mixin title-xl-medium {
+  @include title-xl;
+  @include font-medium;
+}
+
+@mixin title-xl-regular {
+  @include title-xl;
+  @include font-regular;
+}
+
+
+@mixin title-l-bold {
+  @include title-l;
+  @include font-bold;
+}
+
+@mixin title-l-medium {
+  @include title-l;
+  @include font-medium;
+}
+
+@mixin title-l-regular {
+  @include title-l;
+  @include font-regular;
+}
+
+@mixin text-xl-bold {
+  @include text-xl;
+  @include font-bold;
+}
+
+@mixin text-xl-medium {
+  @include text-xl;
+  @include font-medium;
+}
+
+@mixin text-xl-regular {
+  @include text-xl;
+  @include font-regular;
+}
+
+
+@mixin text-l-bold {
+  @include text-l;
+  @include font-bold;
+}
+
+@mixin text-l-medium {
+  @include text-l;
+  @include font-medium;
+}
+
+@mixin text-l-regular {
+  @include text-l;
+  @include font-regular;
+}
+
+
+@mixin text-m-bold {
+  @include text-m;
+  @include font-bold;
+}
+
+@mixin text-m-medium {
+  @include text-m;
+  @include font-medium;
+}
+
+@mixin text-m-regular {
+  @include text-m;
+  @include font-regular;
+}
+
+
+@mixin text-s-bold {
+  @include text-s;
+  @include font-bold;
+}
+
+@mixin text-s-medium {
+  @include text-s;
+  @include font-medium;
+}
+
+@mixin text-s-regular {
+  @include text-s;
+  @include font-regular;
+}
+
+
+@mixin text-xs-bold {
+  @include text-xs;
+  @include font-bold;
+}
+
+@mixin text-xs-medium {
+  @include text-xs;
+  @include font-medium;
+}
+
+@mixin text-xs-regular {
+  @include text-xs;
+  @include font-regular;
+}
+
+@mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
+  @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+    $mq-breakpoint: map.get($mq-breakpoints, $mq-breakpoint);
+
+    @media (max-width: #{$mq-breakpoint}) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}

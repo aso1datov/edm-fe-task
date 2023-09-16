@@ -1,0 +1,56 @@
+@use "sass:map";
+@import "../../styles/variables";
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  z-index: map.get($z-index, modal);
+}
+
+.dialog {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: auto;
+  margin: 1rem auto;
+  max-width: 36rem;
+  pointer-events: none;
+  min-height: calc(100% - 1rem * 2);
+
+  &.centered {
+    align-items: center;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.appear,
+.enter {
+  opacity: 0;
+}
+
+.appearActive,
+.enterActive {
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.exit {
+  opacity: 1;
+}
+
+.exitActive,
+.exitDone {
+  opacity: 0;
+  transition: opacity 0.2s;
+}

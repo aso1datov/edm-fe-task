@@ -1,0 +1,9 @@
+@use "sass:map";
+@use "sass:color";
+@import './border-radius';
+@import './palette';
+
+$card-background-color: $primary-gray-25;
+$card-border-color: $primary-gray-200;
+$card-border-radius: map.get($border-radius, medium);
+$card-box-shadow: 0 0.25rem 0.75rem 0 color.adjust($color: $black, $alpha: -0.5)

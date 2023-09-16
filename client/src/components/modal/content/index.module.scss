@@ -1,0 +1,23 @@
+@use "sass:map";
+@import "../../../styles/variables";
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  padding: 1rem 1.5rem;
+  outline: 0;
+  background-color: $white;
+  color: $primary-gray-900;
+  box-shadow: 0 0.5rem 1rem rgb(126 145 153 / 10%);
+  border-radius: map.get($border-radius, medium);
+}
+
+.body {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}

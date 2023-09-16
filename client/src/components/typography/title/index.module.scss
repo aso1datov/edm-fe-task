@@ -1,0 +1,31 @@
+/* stylelint-disable selector-class-pattern */
+@import '../../../styles/typography';
+
+.title {
+  margin: 0;
+}
+
+.xxl {
+  @include title-xxl;
+}
+
+.xl {
+  @include title-xl;
+}
+
+.l {
+  @include title-l;
+}
+
+.bold {
+  @include font-bold;
+}
+
+.medium {
+  @include font-medium;
+}
+
+.regular {
+  @include font-regular;
+}
+

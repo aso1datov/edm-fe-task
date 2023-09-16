@@ -1,0 +1,20 @@
+.modal {
+  height: 360px;
+}
+
+.header {
+  margin-bottom: 0.5rem;
+}
+
+.form {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: auto;
+}

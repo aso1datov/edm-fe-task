@@ -1,0 +1,11 @@
+@import "../../styles/mixins";
+
+
+.actions {
+  @include reset-list;
+  
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}

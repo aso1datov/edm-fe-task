@@ -1,0 +1,10 @@
+@import '../../../styles/variables';
+
+.row {
+  position: relative;
+  border-bottom: 1px solid $primary-gray-200;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}

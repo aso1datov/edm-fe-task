@@ -1,0 +1,14 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.input[type='password'] {
+  font-family: monospace;
+}
+
+.toggleButton {
+  @include reset-button;
+
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+}

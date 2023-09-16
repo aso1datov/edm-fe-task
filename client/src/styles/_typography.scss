@@ -1,0 +1,65 @@
+@mixin title-xxl {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin title-xl {
+  font-size: 1.375rem;
+  line-height: 2rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin title-l {
+  font-size: 1.125rem;
+  line-height: 1.625rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin text-xxl {
+  font-size: 2rem;
+  line-height: 2.5rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin text-xl {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin text-l {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin text-m {
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin text-s {
+  font-size: 0.625rem;
+  line-height: 1rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin text-xs {
+  font-size: 0.5rem;
+  line-height: 0.75rem;
+  letter-spacing: 0.0125rem;
+}
+
+@mixin font-bold {
+  font-weight: 700;
+}
+
+@mixin font-medium {
+  font-weight: 500;
+}
+
+@mixin font-regular {
+  font-weight: 400;
+}

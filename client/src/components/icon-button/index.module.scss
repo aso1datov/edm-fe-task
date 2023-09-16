@@ -1,0 +1,30 @@
+/* stylelint-disable selector-class-pattern, max-nesting-depth */
+
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.button {
+  @include reset-button;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  color: $primary-gray-400;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  transition: color 0.15s ease-in-out;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &:disabled {
+    color: $primary-gray-200;
+    cursor: default;
+  }
+
+  &:hover:not(:disabled) {
+    color: $primary-gray-600;
+  }
+}

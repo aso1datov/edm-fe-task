@@ -1,0 +1,35 @@
+@use "sass:color";
+@use "sass:map";
+@import "../../styles/variables";
+
+.layout {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  color: $white;
+}
+
+.rocket {
+  transform: rotate(45deg);
+}
+
+.wrapper {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 960px;
+  min-width: 360px;
+}
+
+.content {
+  margin: 1.5rem;
+}

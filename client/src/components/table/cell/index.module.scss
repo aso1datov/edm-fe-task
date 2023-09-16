@@ -1,0 +1,19 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.cell {
+  background-color: $white;
+  color: $primary-gray-500;
+  text-align: left;
+  padding: 0.5rem 1rem;
+
+  &.th {
+    @include text-m-bold;
+
+    border-bottom: 1px solid $primary-gray-200;
+  }
+
+  &.td {
+    @include text-m-medium;
+  }
+}

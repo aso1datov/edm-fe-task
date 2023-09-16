@@ -1,0 +1,81 @@
+/* stylelint-disable property-no-vendor-prefix */
+
+@import '../../styles/variables';
+
+.input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: none;
+  background-clip: padding-box;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  font: inherit;
+  letter-spacing: inherit;
+  color: currentcolor;
+  transition: color $input-transition-duration $input-transition-timing-function;
+  animation-name: auto-fill-cancel;
+  animation-duration: 0.1s;
+  -webkit-tap-highlight-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:invalid {
+    box-shadow: none;
+  }
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &::-ms-reveal,
+  &::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  &:-webkit-autofill {
+    animation-name: auto-fill;
+    animation-duration: 5000s;
+    -webkit-text-fill-color: inherit;
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    /* stylelint-disable-next-line max-nesting-depth */
+    &::first-line {
+      font-size: initial;
+      line-height: inherit;
+    }
+  }
+
+  &::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+}
+
+@keyframes auto-fill {
+  from {
+    display: block;
+  }
+}
+
+@keyframes auto-fill-cancel {
+  from {
+    display: block;
+  }
+}

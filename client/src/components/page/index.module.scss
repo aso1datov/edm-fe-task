@@ -1,0 +1,9 @@
+@use "sass:color";
+@import "../../styles/variables";
+
+.container {
+  position: relative;
+  background: linear-gradient(to bottom, color.adjust($color: $secondary-blue-900, $lightness: -15%) 0, color.adjust($color: $secondary-blue-900, $lightness: 5%));
+  min-height: 100vh;
+  overflow-x: hidden;
+}

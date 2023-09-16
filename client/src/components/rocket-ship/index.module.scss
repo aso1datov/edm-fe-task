@@ -1,0 +1,148 @@
+@use "sass:color";
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+$body-height: 50px;
+$body-height-percent: calc($body-height / 100);
+$body-width: calc($body-height-percent * 40);
+$body-width-percent: calc($body-width / 100);
+
+// Calc
+$engine-height: calc($body-height-percent * 17.5);
+$engine-width: calc($body-width-percent * 10);
+$tail-height: calc($body-height-percent * 40);
+$tail-width: calc($body-width-percent * 44);
+$tail-offset: calc($body-height-percent * -27.5);
+$flame-height: calc($body-height-percent * 30);
+$flame-width: calc($body-width-percent * 45);
+$flame-color: yellow;
+$flame-core-width: calc($flame-width * 0.8);
+$flame-core-color: orangered;
+
+.body {
+  background-color: #C3CBDC;
+  border-radius: 50% 50% 20% 20% / 40% 40% 60% 60%;
+  height: $body-height;
+  width: $body-width;
+  pointer-events: none;
+}
+
+.tail {
+  position: relative;
+  top: 100%;
+  left: 50%;
+  background-color: #EDF1F4;
+  height: $engine-height;
+  width: $engine-width;
+  transform: translateX(-50%);
+
+  &::before,
+  &::after {
+    display: block;
+    height: $tail-height;
+    position: absolute;
+    top: calc($tail-height / 2 * -1);
+    width: $tail-width;
+    content: '';
+    background-repeat: no-repeat;
+    background-size: 200% 200%;
+    background-position: 0 -0;
+    border-radius: 100% 20% 0 10% / 60% 100% 0 40%;
+  }
+  
+  &::before{
+    background-image: radial-gradient(ellipse, transparent 40%, gray 42%);
+    box-shadow: -2px -2px 0 0 color.adjust($color: gray, $lightness: -10%);
+    left: calc($body-height-percent * -27.5);
+  }
+  
+  &::after {
+    background-image: radial-gradient(ellipse, transparent 40%, color.adjust($color: gray, $lightness: -5%) 42%);
+    box-shadow: -2px -2px 0 0 color.adjust($color: gray, $lightness: -5%);
+    right: $tail-offset;
+    transform: rotateY(180deg);
+  }
+}
+
+.flames {
+  @include reset-list;
+  
+  position: relative;
+  opacity: 0.3;
+  top: calc($body-height-percent * 82);
+  transform: scale(0.3);
+  transform-origin: top center;
+  
+  li {
+    position: absolute;
+    left: 50%;
+    opacity: 0.7;
+    border-radius: 50% 50% 60% 60% / 50% 50% 100% 100%;
+    transform-origin: top center;
+
+    &:first-child {
+      top: calc(100% + $flame-height * 0.1);
+      height: $flame-height;
+      background-color: $flame-color;
+      width: $flame-width;
+      margin-left: calc($flame-width / -2);
+      box-shadow: 0 ($flame-height * 0.2) ($flame-height * 0.2) -2px $flame-color;
+      animation: fire .4s infinite ease-in-out;
+    }
+    
+    &:last-child {
+      background-color: $flame-core-color;
+      top: calc(100% + $flame-height * 0.2);
+      box-shadow: 0 ($flame-height * 0.2) ($flame-height * 0.2) -2px $flame-core-color;
+      height: calc($flame-height * 0.5);
+      margin-left: calc($flame-core-width / -2);
+      width: $flame-core-width;
+      animation-delay: .3s;
+    }
+  }
+}
+
+.animated {
+  .flames {
+    animation: flames 8s infinite;
+
+    li:first-child {
+      animation: fire .4s infinite ease-in-out;
+    }
+  }
+  
+}
+
+@keyframes fire {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.96) rotate(-3deg);
+  }
+
+  100% {
+    opacity: 0.6;
+    transform: scale(1.01) rotate(-2deg);
+  }
+}
+
+@keyframes flames {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  25% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
