@@ -113,19 +113,19 @@ export const EditShipModal: FC = () => {
             label="Name"
             error={Boolean(errors.name)}
             errorText={errors.name?.message}
-            required={true}
+            asterisk={true}
             {...nameField}
           />
           <FocusesSelect
             error={Boolean(errors.focus)}
             errorText={errors.focus?.message}
-            required={true}
+            asterisk={true}
             {...focusField}
           />
           <ManufacturersSelect
             error={Boolean(errors.manufacturer)}
             errorText={errors.manufacturer?.message}
-            required={true}
+            asterisk={true}
             {...manufacturerField}
           />
           <Input
@@ -133,7 +133,7 @@ export const EditShipModal: FC = () => {
             type="number"
             error={Boolean(errors.price)}
             errorText={errors.price?.message}
-            required={true}
+            asterisk={true}
             {...priceField}
           />
 

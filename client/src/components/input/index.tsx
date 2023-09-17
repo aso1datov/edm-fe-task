@@ -51,11 +51,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       bottomAddonStartClassName,
       bottomAddonEnd,
       bottomAddonEndClassName,
-      variant,
       required,
       disabled,
       value,
       containerProps,
+      asterisk,
       onChange,
       onFocus,
       onBlur,
@@ -151,8 +151,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         focused={focused}
         filled={filled}
         required={required}
+        asterisk={asterisk}
         disabled={disabled}
-        variant={variant}
         containerProps={containerProps}
       >
         <input

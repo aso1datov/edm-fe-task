@@ -9,7 +9,9 @@ export type Ship = {
   price: number;
 };
 
-export type UpdateShipPayload = Pick<Ship, "_id" | "name" | "price"> & {
+export type AddShipPayload = Pick<Ship, "name" | "price"> & {
   focus: Focus["_id"];
   manufacturer: Manufacturer["_id"];
 };
+
+export type UpdateShipPayload = AddShipPayload & Pick<Ship, "_id">;

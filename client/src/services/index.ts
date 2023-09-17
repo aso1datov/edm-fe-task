@@ -10,7 +10,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: API_BASE_URL,
     paramsSerializer(params) {
-      return qs.stringify(params, { skipNull: true });
+      return qs.stringify(params, { skipNull: true, skipEmptyString: true });
     },
     prepareHeaders(headers) {
       const token = getAuthToken();

@@ -51,7 +51,7 @@ export const ModalContext = createContext<ModalContextType>({
   onClose: noop,
 });
 
-const MODAL_APPEARANCE_TIMEOUT = 200;
+const MODAL_APPEARANCE_TIMEOUT = 150;
 
 export const Modal: ModalComponent = ({
   show,

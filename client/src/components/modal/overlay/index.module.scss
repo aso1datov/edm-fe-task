@@ -19,16 +19,16 @@
 .enterActive,
 .appearDone,
 .enterDone {
-  background-color: rgba($black, 0.75);
-  transition: background-color 0.2s;
+  background-color: rgba($black, 0.5);
+  transition: background-color 0.15s;
 }
 
 .exit {
-  background-color: rgba($black, 0.75);
+  background-color: rgba($black, 0.5);
 }
 
 .exitActive,
 .exitDone {
   background-color: transparent;
-  transition: background-color 0.2s;
+  transition: background-color 0.15s;
 }

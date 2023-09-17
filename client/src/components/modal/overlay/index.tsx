@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-const DEFAULT_APPEARANCE_TIMEOUT = 200;
+const DEFAULT_APPEARANCE_TIMEOUT = 150;
 
 export const Overlay: FC<Props> = ({
   show,

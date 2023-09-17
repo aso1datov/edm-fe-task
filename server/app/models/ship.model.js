@@ -11,10 +11,12 @@ const Ship = mongoose.model(
     focus: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Focus",
+      required: true,
     },
     manufacturer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Manufacturer",
+      required: true,
     },
     price: {
       required: true,

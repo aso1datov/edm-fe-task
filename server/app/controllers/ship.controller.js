@@ -18,10 +18,10 @@ const create = async (req, res) => {
   }
 
   const ship = new Ship({
-    name: req.body.name,
-    focus: req.body.focusId,
-    manufacturer: req.body.manufacturerId,
-    price: req.body.price,
+    name,
+    focus,
+    manufacturer,
+    price,
   });
 
   try {

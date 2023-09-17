@@ -8,7 +8,7 @@ export const focusesApi = api.injectEndpoints({
     getAllFocuses: builder.query<Focus[], void>({
       query: () => "/focuses",
       providesTags: (result) =>
-        result
+        Array.isArray(result)
           ? [
               ...result.map(({ _id }) => ({ type: "Focus", id: _id }) as const),
               { type: "Focus", id: "LIST" },

@@ -19,15 +19,14 @@ export type BaseInputProps = Omit<
   bottomAddonStartClassName?: string;
   bottomAddonEndClassName?: string;
   error?: boolean;
+  asterisk?: boolean;
   errorText?: string;
-  variant?: "primary" | "secondary" | "tertiary";
   required?: boolean;
 };
 
 export const BaseInput = forwardRef<HTMLDivElement, BaseInputProps>(
   (
     {
-      variant = "primary",
       focused = false,
       disabled = false,
       required = false,
@@ -42,6 +41,7 @@ export const BaseInput = forwardRef<HTMLDivElement, BaseInputProps>(
       bottomAddonEndClassName,
       error,
       errorText,
+      asterisk,
       startAddonClassName,
       endAddonClassName,
       ...formControlProps
@@ -86,7 +86,7 @@ export const BaseInput = forwardRef<HTMLDivElement, BaseInputProps>(
     return (
       <FormControl
         ref={forwardedRef}
-        className={clsx(className, styles[variant], {
+        className={clsx(className, styles.primary, {
           [styles.focused]: focused,
           [styles.filled]: filled,
           [styles.disabled]: disabled,
@@ -102,7 +102,7 @@ export const BaseInput = forwardRef<HTMLDivElement, BaseInputProps>(
         <label htmlFor={id} className={styles.label}>
           <span className={styles.labelText}>
             {label}{" "}
-            {required && (
+            {(required || asterisk) && (
               <sup className={styles.asterisk} aria-hidden={true}>
                 *
               </sup>

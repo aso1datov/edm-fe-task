@@ -8,7 +8,7 @@ export const manufacturersApi = api.injectEndpoints({
     getAllManufacturers: builder.query<Manufacturer[], void>({
       query: () => "/manufacturers",
       providesTags: (result) =>
-        result
+        Array.isArray(result)
           ? [
               ...result.map(
                 ({ _id }) => ({ type: "Manufacturer", id: _id }) as const

@@ -2,49 +2,33 @@ import {
   type DetailedHTMLProps,
   type FocusEventHandler,
   forwardRef,
-  type Key,
-  type Ref,
-  type SelectHTMLAttributes,
+  type InputHTMLAttributes,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from "react";
 import { mergeRefs } from "react-merge-refs";
-import clsx from "clsx";
 
 import { BaseInput, type BaseInputProps } from "../base-input";
 
 import styles from "./index.module.scss";
 
-type NativeSelectProps = Omit<
-  DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>,
+type NativeInputProps = Omit<
+  DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>,
   "ref"
 >;
 
-export type SelectOption = {
-  key?: Key;
-  label: string;
-  value: string | number;
-};
+export type SearchInputProps = NativeInputProps &
+  Omit<BaseInputProps, "children" | "focused" | "filled" | "label">;
 
-export type BaseSelectProps = Omit<NativeSelectProps, "placeholder"> &
-  Omit<BaseInputProps, "children" | "focused"> & {
-    options?: SelectOption[];
-    inputClassName?: string;
-    wrapperRef?: Ref<HTMLDivElement>;
-  };
-
-export const BaseSelect = forwardRef<HTMLSelectElement, BaseSelectProps>(
+export const SearchInput = forwardRef<HTMLInputElement, SearchInputProps>(
   (
     {
-      wrapperRef,
       className,
       id,
-      label,
       error,
       errorText,
-      inputClassName,
+      containerProps,
       startAddon,
       startAddonClassName,
       endAddon,
@@ -53,24 +37,21 @@ export const BaseSelect = forwardRef<HTMLSelectElement, BaseSelectProps>(
       bottomAddonStartClassName,
       bottomAddonEnd,
       bottomAddonEndClassName,
-      asterisk,
       required,
       disabled,
       value,
-      containerProps,
-      options,
+      placeholder = "Search...",
       onFocus,
       onBlur,
-      ...selectProps
+      ...inputProps
     },
     forwardedRef
   ) => {
     const [focused, setFocused] = useState(false);
-    const [filled, setFilled] = useState(false);
-    const selectRef = useRef<HTMLSelectElement | null>(null);
-    const ref = mergeRefs([forwardedRef, selectRef]);
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const ref = mergeRefs([forwardedRef, inputRef]);
 
-    const handleFocus = useCallback<FocusEventHandler<HTMLSelectElement>>(
+    const handleFocus = useCallback<FocusEventHandler<HTMLInputElement>>(
       (event) => {
         setFocused(true);
 
@@ -81,7 +62,8 @@ export const BaseSelect = forwardRef<HTMLSelectElement, BaseSelectProps>(
       [onFocus]
     );
 
-    const handleBlur = useCallback<FocusEventHandler<HTMLSelectElement>>(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const handleBlur = useCallback<FocusEventHandler<HTMLInputElement>>(
       (event) => {
         setFocused(false);
 
@@ -92,16 +74,11 @@ export const BaseSelect = forwardRef<HTMLSelectElement, BaseSelectProps>(
       [onBlur]
     );
 
-    useEffect(() => {
-      setFilled(Array.isArray(options) && options.length > 0);
-    }, [options]);
-
     return (
       <BaseInput
-        ref={wrapperRef}
+        label=""
         className={className}
         id={id}
-        label={label}
         error={error}
         errorText={errorText}
         startAddon={startAddon}
@@ -113,30 +90,23 @@ export const BaseSelect = forwardRef<HTMLSelectElement, BaseSelectProps>(
         bottomAddonEnd={bottomAddonEnd}
         bottomAddonEndClassName={bottomAddonEndClassName}
         focused={focused}
-        filled={filled}
         required={required}
         disabled={disabled}
-        asterisk={asterisk}
         containerProps={containerProps}
       >
-        <select
-          id={id}
+        <input
           ref={ref}
-          className={clsx(inputClassName, styles.select)}
+          type="search"
+          className={styles.input}
           value={value}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
           required={required}
           disabled={disabled}
-          defaultValue={value}
-          {...selectProps}
-        >
-          {options?.map(({ key, label, value }) => (
-            <option key={key ?? value} value={value}>
-              {label}
-            </option>
-          ))}
-        </select>
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          placeholder={placeholder}
+          autoComplete="off"
+          {...inputProps}
+        />
       </BaseInput>
     );
   }
