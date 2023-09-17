@@ -1,5 +1,6 @@
-import { type FC, useState } from "react";
+import { ChangeEventHandler, type FC, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useDebounce } from "rooks";
 
 import { GeneralPermission } from "../../permissions/general";
 import { useGetAllShipsQuery } from "../../services/ships";
@@ -23,9 +24,24 @@ type SortDirection = "asc" | "desc" | null;
 
 export const ShipsTable: FC = () => {
   const dispatch = useDispatch();
+  const [query, setQuery] = useState("");
   const [orderBy, setOrderBy] = useState<OrderField | null>(null);
   const [sortBy, setSortBy] = useState<SortDirection | null>(null);
-  const { data = [] } = useGetAllShipsQuery({ sortBy, orderBy });
+  const { data = [] } = useGetAllShipsQuery({ query, sortBy, orderBy });
+
+  const handleSearch = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    (event) => {
+      const { value: searchTerm } = event.target;
+
+      setQuery(searchTerm.trim());
+    },
+    []
+  );
+
+  const debouncedHandleSearch = useDebounce(
+    handleSearch,
+    300
+  ) as typeof handleSearch;
 
   const handleSortField = (field: OrderField) => (sort: SortDirection) => {
     setSortBy(sort);
@@ -49,7 +65,10 @@ export const ShipsTable: FC = () => {
   return (
     <>
       <div className={styles.topbar}>
-        <SearchInput className={styles.search} />
+        <SearchInput
+          className={styles.search}
+          onChange={debouncedHandleSearch}
+        />
 
         <ProtectedComponent permission={GeneralPermission.Edit}>
           <Button size="m" onClick={handleShowAddShipModal}>
@@ -58,7 +77,7 @@ export const ShipsTable: FC = () => {
         </ProtectedComponent>
       </div>
 
-      <Table>
+      <Table className={styles.table}>
         <Table.Header>
           <Table.Row>
             <Table.Cell
@@ -85,7 +104,7 @@ export const ShipsTable: FC = () => {
             >
               Price (CR)
             </Table.Cell>
-            <Table.Cell />
+            <Table.Cell>Actions</Table.Cell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
