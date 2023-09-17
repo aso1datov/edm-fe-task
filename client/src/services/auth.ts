@@ -24,7 +24,14 @@ export const authApi = api.injectEndpoints({
         }
       },
     }),
+    validateToken: builder.query<void, void>({
+      query: () => "/auth/validate",
+    }),
   }),
 });
 
-export const { useSignInMutation } = authApi;
+export const {
+  useSignInMutation,
+  useValidateTokenQuery,
+  useLazyValidateTokenQuery,
+} = authApi;

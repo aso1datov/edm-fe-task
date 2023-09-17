@@ -111,8 +111,31 @@ const refreshToken = (req, res) => {
   }
 };
 
+const validate = (req, res, next) => {
+  const accessToken = req.headers["authorization"];
+
+  if (!accessToken) {
+    return res.status(401).send({
+      message: "No token provided",
+    });
+  }
+
+  try {
+    const [, token] = accessToken.split("Bearer ");
+    jwt.verify(token, config.secret);
+
+    res.status(200).send();
+  } catch (error) {
+    res.status(401).send({
+      title: "Authentication failed",
+      error,
+    });
+  }
+};
+
 module.exports = {
   refreshToken,
   signIn,
   signUp,
+  validate,
 };

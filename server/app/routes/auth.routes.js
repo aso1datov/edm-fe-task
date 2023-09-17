@@ -18,6 +18,6 @@ module.exports = function (app) {
   );
 
   app.post("/auth/signin", controller.signIn);
-
   app.post("/auth/refresh", controller.refreshToken);
+  app.get("/auth/validate", controller.validate);
 };
