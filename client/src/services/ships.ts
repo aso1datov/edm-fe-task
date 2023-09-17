@@ -1,5 +1,5 @@
 import { SortDirection } from "../types/common";
-import type { Ship } from "../types/ship";
+import type { Ship, UpdateShipPayload } from "../types/ship";
 
 import { api } from ".";
 
@@ -23,7 +23,21 @@ export const shipsApi = api.injectEndpoints({
             ]
           : [{ type: "Ship", id: "LIST" }],
     }),
+    updateShip: builder.mutation<Ship, UpdateShipPayload>({
+      query: ({ _id, ...body }) => ({
+        url: `/ships/${_id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: (_result, _error, { _id }) => [
+        { type: "Ship", id: _id },
+      ],
+    }),
   }),
 });
 
-export const { useGetAllShipsQuery, useLazyGetAllShipsQuery } = shipsApi;
+export const {
+  useGetAllShipsQuery,
+  useUpdateShipMutation,
+  useLazyGetAllShipsQuery,
+} = shipsApi;

@@ -44,7 +44,7 @@ const authenticate = (req, res, next) => {
     //       .header("Authorization", `Bearer ${accessToken}`)
     //       .send({ user: decoded.user });
     //   } catch (e) {
-    res.status(401).send({ message: "Invalid Token", error: e });
+    res.status(401).send({ message: "Invalid Token", error });
     //   }
   }
 };
