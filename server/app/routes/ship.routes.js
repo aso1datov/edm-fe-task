@@ -12,7 +12,7 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/ships", [authJwt.authenticate, isEditor], controller.findAll);
+  app.get("/ships", [authJwt.authenticate], controller.findAll);
   app.post("/ships", [authJwt.authenticate, isEditor], controller.create);
   app.put("/ships/:id", [authJwt.authenticate, isEditor], controller.update);
   app.delete(
