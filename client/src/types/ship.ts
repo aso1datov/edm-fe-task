@@ -8,3 +8,8 @@ export type Ship = {
   manufacturer: Manufacturer;
   price: number;
 };
+
+export type UpdateShipPayload = Pick<Ship, "_id" | "name" | "price"> & {
+  focus: Focus["_id"];
+  manufacturer: Manufacturer["_id"];
+};

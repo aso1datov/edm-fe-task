@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { authApi } from "../../services/auth";
 import type { Role } from "../../types/role";
 import { getAuthToken } from "../../utils/auth-token";
-import { getRoleFromAuthToken } from "../../utils/get-role-from-auth-token";
+import { getRolesFromAuthToken } from "../../utils/get-roles-from-auth-token";
 
 type State = {
   auth: boolean;
@@ -12,7 +12,7 @@ type State = {
 
 const initialState: State = {
   auth: false,
-  roles: getRoleFromAuthToken(getAuthToken()),
+  roles: getRolesFromAuthToken(getAuthToken()),
 };
 
 const authSlice = createSlice({

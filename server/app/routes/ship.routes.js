@@ -13,4 +13,5 @@ module.exports = function (app) {
 
   app.get("/ships", [authJwt.authenticate], controller.findAll);
   app.post("/ships", [authJwt.authenticate], controller.create);
+  app.put("/ships/:id", [authJwt.authenticate], controller.update);
 };

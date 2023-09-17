@@ -16,7 +16,6 @@ const Ship = mongoose.model(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Manufacturer",
     },
-    description: String,
     price: {
       required: true,
       type: Number,

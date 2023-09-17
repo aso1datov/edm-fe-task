@@ -3,7 +3,7 @@ import type { Role } from "../types/role";
 
 import { parseJwt } from "./parse-jwt";
 
-export function getRoleFromAuthToken(rawToken: string | null): Role[] {
+export function getRolesFromAuthToken(rawToken: string | null): Role[] {
   if (!rawToken) {
     return [];
   }
