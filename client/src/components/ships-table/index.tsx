@@ -1,26 +1,47 @@
-import type { FC } from "react";
+import { type FC, useState } from "react";
 
 import { GeneralPermission } from "../../permissions/general";
 import { useGetAllShipsQuery } from "../../services/ships";
+import { Ship } from "../../types/ship";
 import { Button } from "../button";
 import { ProtectedComponent } from "../protected-component";
 import { Table } from "../table";
 
 import styles from "./index.module.scss";
 
-export const ShipsTable: FC = () => {
-  const { data = [] } = useGetAllShipsQuery();
+type OrderField = keyof Ship;
 
-  // TODO: Add loader
+type SortDirection = "asc" | "desc" | null;
+
+export const ShipsTable: FC = () => {
+  const [orderBy, setOrderBy] = useState<OrderField | null>(null);
+  const [sortBy, setSortBy] = useState<SortDirection | null>(null);
+  const { data = [] } = useGetAllShipsQuery({ sortBy, orderBy });
+
+  const handleSortField = (field: OrderField) => (sort: SortDirection) => {
+    setSortBy(sort);
+    setOrderBy(sort === null ? null : field);
+  };
 
   return (
     <Table>
       <Table.Header>
         <Table.Row>
-          <Table.Cell>Name</Table.Cell>
-          <Table.Cell>Focus</Table.Cell>
-          <Table.Cell>Manufacturer</Table.Cell>
-          <Table.Cell>Price (CR)</Table.Cell>
+          <Table.Cell sortable={true} onSortByChange={handleSortField("name")}>
+            Name
+          </Table.Cell>
+          <Table.Cell sortable={true} onSortByChange={handleSortField("focus")}>
+            Focus
+          </Table.Cell>
+          <Table.Cell
+            sortable={true}
+            onSortByChange={handleSortField("manufacturer")}
+          >
+            Manufacturer
+          </Table.Cell>
+          <Table.Cell sortable={true} onSortByChange={handleSortField("price")}>
+            Price (CR)
+          </Table.Cell>
           <Table.Cell />
         </Table.Row>
       </Table.Header>

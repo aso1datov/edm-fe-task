@@ -27,7 +27,9 @@ const create = (req, res) => {
 };
 
 const findAll = (req, res) => {
+  const { orderBy, sortBy } = req.query;
   Ship.find({})
+    .sort({ [orderBy]: sortBy === "asc" ? 1 : -1 })
     .populate("manufacturer", "-__v")
     .populate("focus", "-__v")
     .exec((err, data) => {
