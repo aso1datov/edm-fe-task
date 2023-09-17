@@ -1,3 +1,4 @@
+import { SortDirection } from "../types/common";
 import type { Ship } from "../types/ship";
 
 import { api } from ".";
@@ -5,8 +6,15 @@ import { api } from ".";
 export const shipsApi = api.injectEndpoints({
   overrideExisting: false,
   endpoints: (builder) => ({
-    getAllShips: builder.query<Ship[], void>({
-      query: () => "/ships",
+    getAllShips: builder.query<
+      Ship[],
+      { sortBy: SortDirection; orderBy: keyof Ship | null }
+    >({
+      query: (params) => ({
+        url: "/ships",
+        method: "GET",
+        params,
+      }),
       providesTags: (result) =>
         Array.isArray(result)
           ? [
