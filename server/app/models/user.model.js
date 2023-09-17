@@ -7,6 +7,8 @@ const User = mongoose.model(
       type: String,
       required: [true, "Please provide an username"],
       unique: [true, "User already exist"],
+      lowercase: true,
+      trim: true,
     },
     password: {
       type: String,

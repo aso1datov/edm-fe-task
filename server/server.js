@@ -7,13 +7,11 @@ const dbConfig = require("./app/config/db.config");
 const app = express();
 
 app.use(cookieParser());
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.disable("x-powered-by");
 
 const db = require("./app/models");
 

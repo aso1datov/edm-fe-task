@@ -9,32 +9,32 @@ const bcrypt = require("bcryptjs");
 const signUp = async (req, res) => {
   try {
     let newUser = new User({
-      username: req.body.username.toLowerCase().trim(),
+      username: req.body.username,
       password: bcrypt.hashSync(req.body.password, 8),
     });
 
-    newUser = await newUser.save();
+    const savedUser = await newUser.save();
 
     if (Array.isArray(req.body.roles)) {
       const roles = await Role.find({
         name: { $in: req.body.roles },
       });
 
-      newUser.roles = roles.map((role) => role._id);
+      savedUser.roles = roles.map((role) => role._id);
     } else {
       const defaultRole = Role.findOne({ name: "viewer" });
-      newUser.roles = [defaultRole._id];
+      savedUser.roles = [defaultRole._id];
     }
 
-    await newUser.save();
-    res.status(201).send(newUser);
+    await savedUser.save();
+    res.status(201).send(savedUser);
   } catch (error) {
     res.status(500).send({ message: error });
   }
 };
 
 const signIn = async (req, res) => {
-  const username = req.body.username.trim().toLowerCase();
+  const username = req.body.username;
 
   try {
     const user = await User.findOne({ username }).populate("roles", "-__v");
