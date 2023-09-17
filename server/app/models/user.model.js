@@ -5,11 +5,12 @@ const User = mongoose.model(
   new mongoose.Schema({
     username: {
       type: String,
-      required: true,
-      unique: true,
+      required: [true, "Please provide an username"],
+      unique: [true, "User already exist"],
     },
     password: {
       type: String,
+      required: [true, "Please provide a password!"],
       required: true,
     },
     roles: [

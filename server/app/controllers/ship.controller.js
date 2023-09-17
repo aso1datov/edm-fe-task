@@ -27,7 +27,7 @@ const create = async (req, res) => {
   try {
     const data = await ship.save();
 
-    res.send(data);
+    res.status(201).send(data);
   } catch (error) {
     res.status(500).send({ message: error });
   }

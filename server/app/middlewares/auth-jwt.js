@@ -7,7 +7,6 @@ const Role = db.role;
 
 const authenticate = (req, res, next) => {
   const accessToken = req.headers["authorization"];
-  // const refreshToken = req.cookies["refresh-token"];
 
   if (!accessToken) {
     return res
@@ -23,29 +22,7 @@ const authenticate = (req, res, next) => {
 
     next();
   } catch (error) {
-    //   if (!refreshToken) {
-    //     return res
-    //       .status(401)
-    //       .send({ message: "Access Denied. No refresh token provided." });
-    //   }
-
-    //   try {
-    //     const decoded = jwt.verify(refreshToken, config.secret);
-    //     const accessToken = jwt.sign(decoded.user, config.secret, {
-    //       expiresIn: "1d",
-    //       algorithm: "HS256",
-    //     });
-
-    //     return res
-    //       .cookie("refresh-token", refreshToken, {
-    //         httpOnly: true,
-    //         sameSite: "strict",
-    //       })
-    //       .header("Authorization", `Bearer ${accessToken}`)
-    //       .send({ user: decoded.user });
-    //   } catch (e) {
     res.status(401).send({ message: "Invalid Token", error });
-    //   }
   }
 };
 

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "1.9.5",
+    "async-mutex": "0.4.0",
     "clsx": "2.0.0",
     "normalize.css": "8.0.1",
     "query-string": "8.1.0",

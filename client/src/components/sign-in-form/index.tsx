@@ -1,9 +1,11 @@
 import { FC, useState } from "react";
 import { useForm, useFormState } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import clsx from "clsx";
 
 import { ReactComponent as UserIcon } from "../../assets/user.svg";
 import { useSignInMutation } from "../../services/auth";
+import { setAuthState } from "../../store/slices/auth";
 import { dropAuthToken } from "../../utils/auth-token";
 import { isServerError } from "../../utils/is-server-error";
 import { Button } from "../button";
@@ -28,6 +30,7 @@ const initialValues: Fields = {
 };
 
 export const SignInForm: FC<Props> = ({ className }) => {
+  const dispatch = useDispatch();
   const [error, setError] = useState<string | undefined>();
   const [signIn, { isLoading, isError }] = useSignInMutation();
   const { control, register, handleSubmit } = useForm<Fields>({
@@ -62,7 +65,9 @@ export const SignInForm: FC<Props> = ({ className }) => {
 
   const onSubmit = handleSubmit(async ({ username, password }) => {
     try {
-      await signIn({ username, password }).unwrap();
+      const { roles } = await signIn({ username, password }).unwrap();
+
+      dispatch(setAuthState({ auth: true, roles }));
     } catch (error) {
       dropAuthToken();
 
