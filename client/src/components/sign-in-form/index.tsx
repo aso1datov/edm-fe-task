@@ -75,7 +75,6 @@ export const SignInForm: FC<Props> = ({ className }) => {
   return (
     <form
       className={clsx(className, styles.container)}
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={onSubmit}
       autoComplete="off"
     >

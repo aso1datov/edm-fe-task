@@ -11,7 +11,7 @@ const create = async (req, res) => {
 
   if (!name || !focus || !manufacturer || !price) {
     res.status(400).send({
-      message: "This fields are required: name, focus, manufacturer, price ",
+      message: "This fields are required: name, focus, manufacturer, price",
     });
 
     return;
@@ -48,8 +48,6 @@ const findAll = async (req, res) => {
   }
 };
 
-const findOne = (req, res) => {};
-
 const update = async (req, res) => {
   if (!req.body) {
     return res.status(400).send({
@@ -66,12 +64,12 @@ const update = async (req, res) => {
     );
 
     if (!data) {
-      res.status(404).send({
+      return res.status(404).send({
         message: `Cannot update Ship with id=${id}`,
       });
-    } else {
-      res.send(data);
     }
+
+    res.send(data);
   } catch (error) {
     res.status(500).send({
       message: `Error updating Ship with id ${id}`,
@@ -80,12 +78,30 @@ const update = async (req, res) => {
   }
 };
 
-const deleteOne = (req, res) => {};
+const deleteOne = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    const data = await Ship.findByIdAndDelete(id);
+
+    if (!data) {
+      return res.status(404).send({
+        message: `Cannot delete Ship with id=${id}`,
+      });
+    }
+
+    res.send();
+  } catch (error) {
+    res.status(500).send({
+      message: `Cannot delete Ship with id=${id}`,
+      error,
+    });
+  }
+};
 
 module.exports = {
   create,
   findAll,
-  findOne,
   update,
   deleteOne,
 };

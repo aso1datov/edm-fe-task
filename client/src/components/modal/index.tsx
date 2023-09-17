@@ -59,7 +59,7 @@ export const Modal: ModalComponent = ({
   dialogClassName,
   children,
   overlay = true,
-  centered = true,
+  centered = false,
   autoFocus = true,
   returnFocus = true,
   disableFocusLock = false,

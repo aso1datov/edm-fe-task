@@ -28,6 +28,10 @@
   &.centered {
     align-items: center;
   }
+
+  &:not(.centered) {
+    top: 5rem;
+  }
 }
 
 .hidden {

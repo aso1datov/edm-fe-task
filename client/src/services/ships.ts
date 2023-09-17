@@ -41,6 +41,13 @@ export const shipsApi = api.injectEndpoints({
         { type: "Ship", id: _id },
       ],
     }),
+    deleteShip: builder.mutation<Ship, string>({
+      query: (id) => ({
+        url: `/ships/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (_result, _error, id) => [{ type: "Ship", id }],
+    }),
   }),
 });
 
@@ -49,4 +56,5 @@ export const {
   useAddNewShipMutation,
   useUpdateShipMutation,
   useLazyGetAllShipsQuery,
+  useDeleteShipMutation,
 } = shipsApi;
