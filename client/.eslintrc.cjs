@@ -71,5 +71,6 @@ module.exports = {
         ],
       },
     ],
+    "@typescript-eslint/no-misused-promises": "off",
   },
 };

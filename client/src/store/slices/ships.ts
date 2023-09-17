@@ -6,12 +6,14 @@ type State = {
   selectedShip: Ship | null;
   showAddShipModal: boolean;
   showEditShipModal: boolean;
+  showDeleteShipModal: boolean;
 };
 
 const initialState: State = {
   selectedShip: null,
   showAddShipModal: false,
   showEditShipModal: false,
+  showDeleteShipModal: false,
 };
 
 const shipsSlice = createSlice({
@@ -24,6 +26,9 @@ const shipsSlice = createSlice({
     setShowAddShipModal: (state, action: PayloadAction<boolean>) => {
       state.showAddShipModal = action.payload;
     },
+    setShowDeleteShipModal: (state, action: PayloadAction<boolean>) => {
+      state.showDeleteShipModal = action.payload;
+    },
     setSelectedShip: (state, action: PayloadAction<Ship | null>) => {
       state.selectedShip = action.payload;
     },
@@ -31,7 +36,11 @@ const shipsSlice = createSlice({
   },
 });
 
-export const { setSelectedShip, setShowAddShipModal, setShowEditShipModal } =
-  shipsSlice.actions;
+export const {
+  setSelectedShip,
+  setShowAddShipModal,
+  setShowEditShipModal,
+  setShowDeleteShipModal,
+} = shipsSlice.actions;
 
 export const ships = shipsSlice.reducer;

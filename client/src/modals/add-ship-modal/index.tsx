@@ -76,14 +76,13 @@ export const AddShipModal: FC = () => {
 
   return (
     <Modal show={show} onClose={handleClose} centered={false}>
-      <Modal.Content className={styles.modal}>
-        <Modal.Header className={styles.header}>
+      <Modal.Content>
+        <Modal.Header>
           <Typography.Title tag="h6" size="l" weight="bold">
             Add new ship
           </Typography.Title>
         </Modal.Header>
 
-        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
         <form className={styles.form} onSubmit={onSubmit}>
           <Input
             label="Name"

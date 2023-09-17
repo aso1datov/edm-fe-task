@@ -1,19 +1,15 @@
-@import '../../styles/variables';
-
-.header {
-  margin-bottom: 0.5rem;
-}
+@import "../../styles/variables";
 
 .form {
   display: flex;
   flex-flow: column nowrap;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .controls {
   display: flex;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .errors {

@@ -95,19 +95,14 @@ export const EditShipModal: FC = () => {
   }, [reset, setValue, ship]);
 
   return (
-    <Modal
-      show={show}
-      centered={false}
-      onClose={handleClose}
-      keepMounted={true}
-    >
+    <Modal show={show} onClose={handleClose} keepMounted={true}>
       <Modal.Content>
         <Modal.Header className={styles.header}>
           <Typography.Title tag="h6" size="l" weight="bold">
             Edit ship
           </Typography.Title>
         </Modal.Header>
-        {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
+
         <form className={styles.form} onSubmit={onSubmit}>
           <Input
             label="Name"

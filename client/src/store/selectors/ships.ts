@@ -10,3 +10,6 @@ export const getShowAddShipModalState = (state: RootState) =>
 
 export const getShowEditShipModalState = (state: RootState) =>
   getShipsState(state).showEditShipModal;
+
+export const getShowDeleteShipModalState = (state: RootState) =>
+  getShipsState(state).showDeleteShipModal;

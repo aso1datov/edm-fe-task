@@ -6,6 +6,7 @@ import { useGetAllShipsQuery } from "../../services/ships";
 import {
   setSelectedShip,
   setShowAddShipModal,
+  setShowDeleteShipModal,
   setShowEditShipModal,
 } from "../../store/slices/ships";
 import { Ship } from "../../types/ship";
@@ -38,6 +39,11 @@ export const ShipsTable: FC = () => {
   const handleShowEditShipModal = (selectedShip: Ship) => {
     dispatch(setSelectedShip(selectedShip));
     dispatch(setShowEditShipModal(true));
+  };
+
+  const handleShowDeleteShipModal = (selectedShip: Ship) => {
+    dispatch(setSelectedShip(selectedShip));
+    dispatch(setShowDeleteShipModal(true));
   };
 
   return (
@@ -114,7 +120,11 @@ export const ShipsTable: FC = () => {
                     </ProtectedComponent>
                     <ProtectedComponent permission={GeneralPermission.Delete}>
                       <li>
-                        <Button size="s" variant="link">
+                        <Button
+                          size="s"
+                          variant="link"
+                          onClick={() => handleShowDeleteShipModal(ship)}
+                        >
                           Delete
                         </Button>
                       </li>
