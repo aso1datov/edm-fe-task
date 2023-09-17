@@ -8,7 +8,7 @@ export const shipsApi = api.injectEndpoints({
   endpoints: (builder) => ({
     getAllShips: builder.query<
       Ship[],
-      { sortBy: SortDirection; orderBy: keyof Ship | null }
+      { query: string; sortBy: SortDirection; orderBy: keyof Ship | null }
     >({
       query: (params) => ({
         url: "/ships",

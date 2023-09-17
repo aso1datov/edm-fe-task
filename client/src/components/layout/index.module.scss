@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "sass:map";
 @import "../../styles/variables";
+@import "../../styles/mixins";
 
 .layout {
   position: relative;
@@ -32,4 +33,8 @@
 
 .content {
   margin: 1.5rem;
+
+  @include mq(mobile) {
+    margin: 1rem;
+  }
 }

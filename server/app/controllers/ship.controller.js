@@ -34,10 +34,18 @@ const create = async (req, res) => {
 };
 
 const findAll = async (req, res) => {
-  const { orderBy, sortBy } = req.query;
+  const { orderBy, sortBy, query } = req.query;
 
   try {
-    const data = await Ship.find({})
+    const options = query
+      ? {
+          name: {
+            $regex: `\\b${query.replace(/\s+/g, " ").trim()}`,
+            $options: "i",
+          },
+        }
+      : {};
+    const data = await Ship.find(options)
       .sort({ [orderBy]: sortBy === "asc" ? 1 : -1 })
       .populate("manufacturer focus", "-__v");
 
