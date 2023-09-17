@@ -11,7 +11,7 @@ type State = {
 };
 
 const initialState: State = {
-  auth: true,
+  auth: false,
   roles: getRolesFromAuthToken(getAuthToken()),
 };
 

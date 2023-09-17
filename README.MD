@@ -11,7 +11,7 @@ docker-compose up
 Go to the `client` folder, then run the following command:
 
 ```sh
-yarn && yarn start
+yarn && yarn preview
 ```
 
 # Usage
